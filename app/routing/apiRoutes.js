@@ -6,7 +6,42 @@ module.exports = function (app){
     });
 
     app.post('/api/friends', function(req,res){
-        friendData.push(req.body);
-        res.json(true);
-    })
-}
+        console.log(req.body.scores);
+
+        //Contains the details from the new user (name, photo, and scores).
+        var friend = req.body;
+        
+        for (var i = 0; i < friend.scores.length; i++){
+            friend.scores[i] = parseInt(friend.scores[i]);
+        }
+
+        //friendMatch is the index of the match. Defaults to 0 (first friend in the list if there is not a match)
+        //result will be the friend with the lowest difference in scores.
+        var friendMatch = 0;
+        var minDifference = 30; 
+
+        //First look goes through existing array and gives starting value of totalDif variable.
+        for (var i = 0; i < friendsArray.length; i++){
+            var totalDif = 0;
+
+            //Nested loop compares the scores from the new user and the scores for existing friends in our array.
+            //The difference is added to total difference giving us the value needed to find our match.
+            for (var j = 0; j < friends[i].scores.length; j++){
+                var difference = Math.abs(friend.scores[j] - friendsArray[i].scores[j]);
+                totalDif += difference;
+            }
+        
+            //This gives us the friend with the lowest difference in scores.
+            if (totalDif < minDifference){
+                friendMatch = i;
+                minDifference = totalDifference;
+            }
+        }
+
+        //Sends our new friend (user input) to the friendsArray.
+        friendsArray.push(friend);
+
+        //Sends the result to the browser.
+        res.json(friendsArray[friendMatch]);
+    });
+};
