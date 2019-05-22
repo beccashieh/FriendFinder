@@ -285,14 +285,9 @@
               }
 
               if (valid === true) {
-                var newFriend = {
-                  name: $("#friendName")
-                    .val()
-                    .trim(),
-                  photo: $("#photo")
-                    .val()
-                    .trim(),
-                  scores: [
+                const test = [];
+
+                const scores = [
                     $("#q1").val(),
                     $("#q2").val(),
                     $("#q3").val(),
@@ -303,12 +298,27 @@
                     $("#q8").val(),
                     $("#q9").val(),
                     $("#q10").val()
-                  ]
+                  ];
+
+                  scores.forEach(function(score) {
+                    test.push(score)
+                  })
+
+                var newFriend = {
+                  name: $("#friendName")
+                    .val()
+                    .trim(),
+                  photo: $("#photo")
+                    .val()
+                    .trim(),
+                    scores: test
+                  
                 };
                 console.log(newFriend);
-                var currentURL = window.location.origin;
+                
 
-                  $.post(currentURL + "/api/friends", newFriend, function(data) {
+                  $.post("/api/friends", newFriend).then(function(data) {
+                    console.log("This is the data: " + data);
                     $("#bestFriend").text(data.name);
                     $("#bestFriendPhoto").attr("src", data.photo);
                     $("#bestFriendModal").modal("toggle");

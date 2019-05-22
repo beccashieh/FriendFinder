@@ -1,18 +1,21 @@
-var friendData = require('../data/friends.js');
+var friendsArray = require('../data/friends.js');
 
 module.exports = function (app){
     app.get('/api/friends', function(req, res){
-        res.json(friendData);
+        res.json(friendsArray);
     });
 
     app.post('/api/friends', function(req,res){
-        console.log(req.body.scores);
 
         //Contains the details from the new user (name, photo, and scores).
         var friend = req.body;
+        console.log('req body is', req.body['scores[]'])
         
-        for (var i = 0; i < friend.scores.length; i++){
-            friend.scores[i] = parseInt(friend.scores[i]);
+        // console.log(Object.keys(req.body['scores[]']))
+        console.log('firend is', req.body['scores'][1])
+        for (var i = 0; i < req.body['scores[]'].length; i++){
+            
+            friend['scores[]'][i] = parseInt(friend['scores'][i]);
         }
 
         //friendMatch is the index of the match. Defaults to 0 (first friend in the list if there is not a match)
@@ -26,7 +29,7 @@ module.exports = function (app){
 
             //Nested loop compares the scores from the new user and the scores for existing friends in our array.
             //The difference is added to total difference giving us the value needed to find our match.
-            for (var j = 0; j < friends[i].scores.length; j++){
+            for (var j = 0; j < friendsArray[i].scores.length; j++){
                 var difference = Math.abs(friend.scores[j] - friendsArray[i].scores[j]);
                 totalDif += difference;
             }
