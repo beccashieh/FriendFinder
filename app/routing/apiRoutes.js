@@ -9,13 +9,14 @@ module.exports = function (app){
 
         //Contains the details from the new user (name, photo, and scores).
         var friend = req.body;
-        console.log('req body is', req.body['scores[]'])
+        var scores = req.body['scores[]'];
+        console.log('req body is', scores)
         
         // console.log(Object.keys(req.body['scores[]']))
-        console.log('firend is', req.body['scores'][1])
-        for (var i = 0; i < req.body['scores[]'].length; i++){
+        console.log('firend is', scores)
+        for (var i = 0; i < scores.length; i++){
             
-            friend['scores[]'][i] = parseInt(friend['scores'][i]);
+            friend['scores[]'] = parseInt(friend['scores[]']);
         }
 
         //friendMatch is the index of the match. Defaults to 0 (first friend in the list if there is not a match)
@@ -30,7 +31,7 @@ module.exports = function (app){
             //Nested loop compares the scores from the new user and the scores for existing friends in our array.
             //The difference is added to total difference giving us the value needed to find our match.
             for (var j = 0; j < friendsArray[i].scores.length; j++){
-                var difference = Math.abs(friend.scores[j] - friendsArray[i].scores[j]);
+                var difference = Math.abs(friend['scores[]'][j] - friendsArray[i].scores[j]);
                 totalDif += difference;
             }
         

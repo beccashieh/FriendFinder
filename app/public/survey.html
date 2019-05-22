@@ -237,7 +237,7 @@
     <footer>
       <div class="container">
         <hr />
-        <a href="/api/friends.js">API Friends List</a> |
+        <a href="/api/friends">API Friends List</a> |
         <a href="https://github.com/beccashieh/FriendFinder">Github Repo</a>
         </div>
     </footer>
@@ -288,16 +288,16 @@
                 const test = [];
 
                 const scores = [
-                    $("#q1").val(),
-                    $("#q2").val(),
-                    $("#q3").val(),
-                    $("#q4").val(),
-                    $("#q5").val(),
-                    $("#q6").val(),
-                    $("#q7").val(),
-                    $("#q8").val(),
-                    $("#q9").val(),
-                    $("#q10").val()
+                    $("#q1").val().trim(),
+                    $("#q2").val().trim(),
+                    $("#q3").val().trim(),
+                    $("#q4").val().trim(),
+                    $("#q5").val().trim(),
+                    $("#q6").val().trim(),
+                    $("#q7").val().trim(),
+                    $("#q8").val().trim(),
+                    $("#q9").val().trim(),
+                    $("#q10").val().trim()
                   ];
 
                   scores.forEach(function(score) {
@@ -318,7 +318,6 @@
                 
 
                   $.post("/api/friends", newFriend).then(function(data) {
-                    console.log("This is the data: " + data);
                     $("#bestFriend").text(data.name);
                     $("#bestFriendPhoto").attr("src", data.photo);
                     $("#bestFriendModal").modal("toggle");
