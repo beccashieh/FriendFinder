@@ -10,35 +10,39 @@ module.exports = function (app){
         //Contains the details from the new user (name, photo, and scores).
         var friend = req.body;
         var scores = req.body['scores[]'];
-        console.log('req body is', scores)
+        // console.log('req body is', scores)
         
         // console.log(Object.keys(req.body['scores[]']))
-        console.log('firend is', scores)
+        // console.log('friend is', scores)
         for (var i = 0; i < scores.length; i++){
-            
-            friend['scores[]'] = parseInt(friend['scores[]']);
+            parseInt(scores); 
         }
+        console.log('These are the friend scores: ' + scores);
 
         //friendMatch is the index of the match. Defaults to 0 (first friend in the list if there is not a match)
         //result will be the friend with the lowest difference in scores.
-        var friendMatch = 0;
-        var minDifference = 30; 
+        var friendMatch= 0;
+        var minDifference = 1000; 
 
         //First look goes through existing array and gives starting value of totalDif variable.
         for (var i = 0; i < friendsArray.length; i++){
+            // console.log('FriendsArray: ' + friendsArray.length)
             var totalDif = 0;
 
             //Nested loop compares the scores from the new user and the scores for existing friends in our array.
             //The difference is added to total difference giving us the value needed to find our match.
-            for (var j = 0; j < friendsArray[i].scores.length; j++){
-                var difference = Math.abs(friend['scores[]'][j] - friendsArray[i].scores[j]);
-                totalDif += difference;
+            for (var j = 0; j < friendsArray.length; j++){
+                var difference = Math.abs(parseInt(scores[j]) - parseInt(friendsArray[i].scores));
+                totalDif = difference;
+
             }
+            console.log("This is the difference: " + totalDif);
+            console.log("These are the scores from the friends array: " + friendsArray[i].scores);
         
             //This gives us the friend with the lowest difference in scores.
             if (totalDif < minDifference){
                 friendMatch = i;
-                minDifference = totalDifference;
+                minDifference = totalDif;
             }
         }
 
