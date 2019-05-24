@@ -32,9 +32,9 @@ survey.html
 * The ``friends.js`` file contains our array with existing friend array.
 
 ## Technologies Used
-JavaScript
-jQuery
-node.js
-Express.js
-HTML
-Bootstrap
+* JavaScript
+* jQuery
+* node.js
+* Express.js
+* HTML
+* Bootstrap
